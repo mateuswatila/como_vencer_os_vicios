@@ -3,673 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Como Vencer os Vícios | Firme na Palavra</title>
+    <title>Firme na Palavra | Portal de Libertação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2b4c7e;
             --secondary-color: #1a3050;
             --accent-color: #e67e22;
-            --bg-color: #f4f6f9;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --text-muted: #666666;
-            --border-color: #e1e8ed;
-            --shadow-color: rgba(0,0,0,0.08);
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0,0,0,0.05);
+            --glass: rgba(255, 255, 255, 0.85);
+            --success: #16a085;
         }
 
         [data-theme="dark"] {
-            --primary-color: #4a8fe7;
-            --secondary-color: #1c2833;
-            --bg-color: #0f1724;
-            --card-bg: #1a2332;
-            --text-color: #e0e6ed;
-            --text-muted: #8899a6;
-            --border-color: #2f3b4a;
+            --primary-color: #60a5fa;
+            --secondary-color: #0f172a;
+            --bg-color: #0b1120;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
             --shadow-color: rgba(0,0,0,0.3);
+            --glass: rgba(30, 41, 59, 0.85);
+            --success: #2ecc71;
         }
 
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
 
-        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.7; }
+        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: linear-gradient(90deg, var(--accent-color), #f1c40f); z-index: 10000; transition: width 0.1s linear; }
 
-        #progress-bar {
-            position: fixed; top: 0; left: 0; height: 4px; width: 0%;
-            background: linear-gradient(90deg, var(--accent-color), #f1c40f);
-            z-index: 10000; transition: width 0.1s linear; box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        header {
-            background-color: var(--secondary-color); padding: 0.8rem 2rem;
-            position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; justify-content: center;
-        }
-
-        .nav-container {
-            max-width: 1200px; width: 100%; display: flex; flex-wrap: wrap;
-            justify-content: space-between; align-items: center; gap: 1rem;
-        }
-
-        .logo {
-            color: #ffffff; font-size: 1.4rem; font-weight: bold; letter-spacing: 1px;
-            white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            display: flex; align-items: center; gap: 1rem;
-        }
-
+        header { background-color: var(--glass); backdrop-filter: blur(12px); padding: 0.8rem 2rem; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); display: flex; justify-content: center; }
+        .nav-container { max-width: 1200px; width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+        .logo { color: var(--text-color); font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px; white-space: nowrap; display: flex; align-items: center; gap: 1rem; }
         .logo span { color: var(--accent-color); }
+        .theme-toggle { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-color); width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .theme-toggle:hover { border-color: var(--accent-color); }
 
-        .theme-toggle {
-            background: none; border: 2px solid rgba(255,255,255,0.2); color: #fff;
-            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
-            display: flex; align-items: center; justify-content: center; transition: all 0.3s;
-        }
-        .theme-toggle:hover { border-color: var(--accent-color); transform: rotate(30deg); }
-
-        nav { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
-
-        .nav-btn {
-            background: none; border: none; color: #ffffff; padding: 0.6rem 0.9rem;
-            font-size: 0.85rem; cursor: pointer; border-radius: 4px; transition: all 0.3s ease;
-            white-space: nowrap; position: relative;
-        }
-
-        .nav-btn::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
-            background-color: var(--accent-color); transition: all 0.3s ease; transform: translateX(-50%);
-        }
-
-        .nav-btn:hover::after, .nav-btn.active::after { width: 80%; }
-        .nav-btn:hover, .nav-btn.active { background-color: rgba(255,255,255,0.1); color: #fff; }
-
-        .btn-destaque {
-            background-color: #111111 !important; color: #ffffff !important;
-            border: 2px solid #e74c3c !important; font-weight: bold; border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
-        }
-        .btn-destaque::after { display: none; }
-        .btn-destaque:hover { background-color: #e74c3c !important; transform: translateY(-2px); }
+        nav { display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; overflow-x: auto; padding-bottom: 0.3rem; -webkit-overflow-scrolling: touch; }
+        .nav-btn { background: none; border: none; color: var(--text-muted); padding: 0.5rem 0.8rem; font-size: 0.85rem; cursor: pointer; border-radius: 6px; transition: all 0.2s ease; white-space: nowrap; font-weight: 600; }
+        .nav-btn:hover, .nav-btn.active { background-color: var(--primary-color); color: white; }
 
         main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
-
-        .tab-content { display: none; animation: fadeInUp 0.6s ease; }
+        .tab-content { display: none; animation: fadeInUp 0.5s ease; }
         .tab-content.active { display: block; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .hero {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            color: white; padding: 4rem 2rem; border-radius: 16px; text-align: center;
-            margin-bottom: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.2); position: relative; overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
-            animation: heroShine 15s infinite linear;
-        }
-        @keyframes heroShine { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .hero h1 { font-size: 2.8rem; margin-bottom: 1.2rem; position: relative; z-index: 1; }
-        .hero p { font-size: 1.2rem; max-width: 650px; margin: 0 auto 2rem auto; opacity: 0.9; position: relative; z-index: 1; }
+        .hero { background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%); color: white; padding: 5rem 2rem; border-radius: 20px; text-align: center; margin-bottom: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; overflow: hidden; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; position: relative; z-index: 1; font-weight: 900; line-height: 1.1; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem auto; opacity: 0.9; position: relative; z-index: 1; }
+        .cta-btn { background-color: var(--accent-color); color: white; border: none; padding: 1rem 2rem; font-size: 1rem; font-weight: 700; border-radius: 12px; cursor: pointer; position: relative; z-index: 1; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.4); transition: all 0.3s; }
+        .cta-btn:hover { background-color: #d35400; transform: translateY(-3px); }
 
-        .cta-btn {
-            background-color: var(--accent-color); color: white; border: none;
-            padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 50px;
-            cursor: pointer; position: relative; z-index: 1; box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4); transition: all 0.3s;
-        }
-        .cta-btn:hover { background-color: #d35400; transform: translateY(-3px) scale(1.02); }
-
-        .card {
-            background-color: var(--card-bg); padding: 2rem; border-radius: 12px;
-            margin-bottom: 1.5rem; box-shadow: 0 4px 15px var(--shadow-color);
-            border: 1px solid var(--border-color); border-left: 5px solid var(--primary-color); transition: all 0.3s ease;
-        }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px var(--shadow-color); }
-        .card h3 { color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.3rem; }
-        .author { font-style: italic; color: var(--text-muted); margin-bottom: 1rem; display: block; font-size: 0.9rem; }
+        .card { background-color: var(--card-bg); padding: 2rem; border-radius: 16px; margin-bottom: 1.5rem; box-shadow: 0 4px 6px var(--shadow-color); border: 1px solid var(--border-color); border-left: 6px solid var(--primary-color); transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px var(--shadow-color); }
+        .card h3 { color: var(--primary-color); margin-bottom: 0.8rem; font-size: 1.3rem; font-weight: 800; }
+        .author { font-style: italic; color: var(--text-muted); margin-bottom: 1rem; display: block; font-size: 0.85rem; }
 
         .tips-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-        .tip-item {
-            background-color: var(--card-bg); padding: 1.5rem; border-radius: 12px;
-            box-shadow: 0 4px 15px var(--shadow-color); display: flex; gap: 1.2rem;
-            align-items: flex-start; border: 1px solid var(--border-color); transition: all 0.3s ease;
-        }
+        .tip-item { background-color: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px var(--shadow-color); display: flex; gap: 1.2rem; align-items: flex-start; border: 1px solid var(--border-color); transition: all 0.3s ease; }
         .tip-item:hover { transform: translateX(8px); border-left-color: var(--accent-color); }
-        .tip-number {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white; width: 40px; height: 40px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
+        .tip-number { background: var(--primary-color); color: white; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; font-size: 0.9rem; }
 
-        /* Estilos das Novas Ferramentas */
-        .tool-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;
-        }
+        .tool-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .tool-card { background: var(--card-bg); border-radius: 16px; padding: 2rem; border: 1px solid var(--border-color); box-shadow: 0 4px 6px var(--shadow-color); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .tool-icon { width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; }
+        .verse-box { background: var(--bg-color); border-left: 4px solid var(--accent-color); padding: 1.2rem; border-radius: 8px; margin: 1rem 0; font-style: italic; font-size: 1rem; line-height: 1.6; color: var(--text-color); width: 100%; }
 
-        .tool-card {
-            background: var(--card-bg); border-radius: 12px; padding: 2rem;
-            border: 1px solid var(--border-color); box-shadow: 0 4px 15px var(--shadow-color);
-            text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
-        }
-
-        .tool-icon {
-            width: 60px; height: 60px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-            display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); color: white;
-        }
-
-        .verse-box {
-            background: linear-gradient(135deg, rgba(43, 76, 126, 0.1), rgba(230, 126, 34, 0.1));
-            border-left: 4px solid var(--accent-color); padding: 1.5rem; border-radius: 8px;
-            margin: 2rem 0; font-style: italic; font-size: 1.1rem; line-height: 1.6;
-            color: var(--text-color);
-        }
-
-        .diary-area {
-            width: 100%; min-height: 120px; padding: 1rem; border-radius: 8px;
-            border: 1px solid var(--border-color); background: var(--bg-color);
-            color: var(--text-color); font-family: inherit; font-size: 1rem; resize: vertical;
-            margin-bottom: 1rem;
-        }
-
-        .diary-list {
-            background: var(--bg-color); border-radius: 8px; padding: 1rem;
-            max-height: 200px; overflow-y: auto; margin-bottom: 1rem;
-            border: 1px solid var(--border-color); text-align: left;
-        }
-        .diary-item {
-            padding: 0.8rem; border-bottom: 1px solid var(--border-color); font-size: 0.9rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
+        .diary-area { width: 100%; min-height: 100px; padding: 1rem; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); font-family: inherit; font-size: 0.95rem; resize: vertical; margin-bottom: 0.5rem; }
+        .diary-list { background: var(--bg-color); border-radius: 10px; padding: 0.5rem; max-height: 200px; overflow-y: auto; margin-bottom: 0.5rem; border: 1px solid var(--border-color); text-align: left; width: 100%; }
+        .diary-item { padding: 0.8rem; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; display: flex; justify-content: space-between; }
         .diary-item:last-child { border-bottom: none; }
-        .diary-date { color: var(--text-muted); font-size: 0.8rem; }
 
-        .timer-display {
-            font-size: 4rem; font-weight: 800; color: var(--primary-color);
-            font-family: 'Courier New', monospace; margin: 1rem 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .btn-sm {
-            padding: 0.6rem 1.2rem; border-radius: 6px; border: none;
-            cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s;
-            margin: 0.3rem;
-        }
+        .timer-display { font-size: 3.5rem; font-weight: 900; color: var(--primary-color); font-family: monospace; margin: 0.5rem 0; }
+        .btn-sm { padding: 0.6rem 1.2rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; font-size: 0.85rem; transition: all 0.2s; margin: 0.2rem; }
         .btn-primary { background: var(--primary-color); color: white; }
-        .btn-primary:hover { opacity: 0.8; }
-        .btn-danger { background: #e74c3c; color: white; }
-        .btn-danger:hover { opacity: 0.8; }
-        .btn-accent { background: var(--accent-color); color: var(--secondary-color); }
-        .btn-accent:hover { opacity: 0.8; }
-
-        .phase-divider {
-            border: 0; height: 2px; margin: 3rem 0;
-            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-        }
-
-        .phase-title {
-            text-align: center; margin-bottom: 2rem; display: flex;
-            flex-direction: column; align-items: center; gap: 0.5rem;
-        }
-        .phase-icon { font-size: 2.5rem; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-danger:hover { opacity: 0.9; }
+        .btn-accent { background: var(--accent-color); color: white; }
+        .btn-accent:hover { opacity: 0.9; }
 
         .load-more-container { text-align: center; margin: 3rem 0; }
-        .load-more-btn {
-            background-color: transparent; border: 2px solid var(--primary-color);
-            color: var(--primary-color); padding: 0.8rem 2.5rem; font-size: 1rem;
-            font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s;
-        }
-        .load-more-btn:hover {
-            background-color: var(--primary-color); color: white; transform: translateY(-2px);
-            box-shadow: 0 8px 20px var(--shadow-color);
-        }
+        .load-more-btn { background-color: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 0.8rem 2rem; font-size: 1rem; font-weight: bold; border-radius: 12px; cursor: pointer; transition: all 0.3s; }
+        .load-more-btn:hover { background-color: var(--primary-color); color: white; transform: translateY(-2px); }
 
-        .sos-fab {
-            position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px;
-            background-color: #e74c3c; color: white; border: none; border-radius: 50%;
-            font-size: 1.4rem; font-weight: bold; cursor: pointer; z-index: 999;
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
-            display: flex; align-items: center; justify-content: center;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(231, 76, 60, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
-        }
-        .sos-fab:hover { background-color: #c0392b; transform: scale(1.1); }
+        .chat-btn { position: fixed; bottom: 25px; left: 25px; width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; border-radius: 50%; font-size: 1.8rem; cursor: pointer; z-index: 998; box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .chat-btn:hover { transform: scale(1.1); }
+        .chat-box { position: fixed; bottom: 95px; left: 25px; width: 380px; height: 500px; background: var(--card-bg); border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.4); z-index: 998; display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color); }
+        .chat-box.active { display: flex; animation: fadeInUp 0.3s ease; }
+        .chat-head { background: var(--secondary-color); color: white; padding: 1.2rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .chat-head span { display: flex; align-items: center; gap: 0.5rem; }
+        .chat-body { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+        .msg { max-width: 85%; padding: 1rem; border-radius: 16px; font-size: 0.9rem; line-height: 1.5; box-shadow: 0 2px 5px var(--shadow-color); }
+        .bot { background: var(--card-bg); color: var(--text-color); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border-color); }
+        .user { background: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-input-area { padding: 1rem; border-top: 1px solid var(--border-color); display: flex; gap: 0.5rem; background: var(--bg-color); }
+        .chat-input { flex: 1; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); padding: 0.8rem 1rem; border-radius: 12px; outline: none; font-size: 0.9rem; }
+        .chat-input:focus { border-color: var(--primary-color); }
+        .chat-send { background: var(--primary-color); color: white; border: none; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
 
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 1000; display: none;
-            align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px);
-        }
+        .sos-fab { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background: #ef4444; color: white; border: none; border-radius: 14px; font-size: 1.4rem; font-weight: bold; cursor: pointer; z-index: 998; box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5); display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
-        .modal-content {
-            background-color: var(--card-bg); width: 100%; max-width: 600px;
-            border-radius: 16px; padding: 2.5rem; position: relative;
-            animation: modalIn 0.3s ease; border-top: 6px solid #e74c3c;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto;
-        }
-        @keyframes modalIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .modal-close {
-            position: absolute; top: 15px; right: 20px; background: none; border: none;
-            font-size: 2rem; color: var(--text-muted); cursor: pointer;
-        }
-        .modal-close:hover { color: #e74c3c; }
+        .modal-content { background-color: var(--card-bg); width: 100%; max-width: 550px; border-radius: 20px; position: relative; animation: modalIn 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
+        @keyframes modalIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-close { position: absolute; top: 15px; right: 20px; background: rgba(0,0,0,0.3); border: none; font-size: 1.2rem; color: white; cursor: pointer; font-weight: bold; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; z-index: 10; }
 
-        #back-to-top {
-            position: fixed; bottom: 110px; right: 37px; width: 45px; height: 45px;
-            background-color: var(--primary-color); color: white; border: none; border-radius: 50%;
-            font-size: 1.2rem; cursor: pointer; z-index: 998; opacity: 0; visibility: hidden;
-            transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: flex; align-items: center; justify-content: center;
-        }
+        #back-to-top { position: fixed; bottom: 100px; right: 30px; width: 45px; height: 45px; background-color: var(--primary-color); color: white; border: none; border-radius: 10px; font-size: 1.2rem; cursor: pointer; z-index: 997; opacity: 0; visibility: hidden; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; }
         #back-to-top.show { opacity: 1; visibility: visible; }
-        #back-to-top:hover { background-color: var(--accent-color); transform: translateY(-3px); }
 
-        footer {
-            background: linear-gradient(180deg, var(--secondary-color) 0%, #0f1f33 100%);
-            color: #ffffff; text-align: center; padding: 3rem 1rem;
-            margin-top: 5rem; border-top: 4px solid var(--accent-color);
-        }
+        .comfort-result { margin-top: 1.5rem; background: var(--bg-color); padding: 1.5rem; border-radius: 12px; border-left: 5px solid var(--accent-color); text-align: left; }
+
+        footer { background: var(--secondary-color); color: #ffffff; text-align: center; padding: 3rem 1rem; margin-top: 5rem; }
         .footer-content { max-width: 800px; margin: 0 auto; }
-        .footer-logo { font-size: 1.8rem; font-weight: bold; margin-bottom: 1rem; letter-spacing: 1px; }
+        .footer-logo { font-size: 1.8rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -1px; }
         .footer-logo span { color: var(--accent-color); }
-        .footer-credits {
-            margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.95rem; color: #8fa3bf;
-        }
-        .footer-credits strong { color: var(--accent-color); font-weight: 700; letter-spacing: 1px; font-size: 1.1rem; }
+        .footer-credits { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; color: #94a3b8; }
+        .footer-credits strong { color: var(--accent-color); font-weight: 700; font-size: 1rem; }
 
-        @media (max-width: 900px) {
-            .nav-container { flex-direction: column; align-items: flex-start; }
-            nav { width: 100%; justify-content: flex-start; overflow-x: auto; padding-bottom: 0.5rem; }
-            .hero h1 { font-size: 2rem; }
-            .sos-fab { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 1.1rem; }
-            #back-to-top { bottom: 85px; right: 27px; }
-        }
+        @media (max-width: 900px) { .nav-container { flex-direction: column; align-items: flex-start; } nav { width: 100%; } .hero h1 { font-size: 2.2rem; } .chat-box { left: 10px; right: 10px; width: auto; bottom: 90px; height: 60vh; } }
     </style>
 </head>
 <body>
 
     <div id="progress-bar"></div>
     <button id="back-to-top" title="Voltar ao topo">↑</button>
-    <button class="sos-fab" onclick="openSOS()" title="Ajuda Imediata">SOS</button>
+    <button class="sos-fab" onclick="openSOS()">SOS</button>
+
+    <button class="chat-btn" onclick="toggleChat()">🙏</button>
+    <div class="chat-box" id="chat-box">
+        <div class="chat-head"><span>✝️ Conselheiro Virtual</span><button style="background:none; border:none; color:white; cursor:pointer; font-size:1.4rem;" onclick="toggleChat()">✕</button></div>
+        <div class="chat-body" id="chat-body"><div class="msg bot">Olá, irmão/irmã! Estou aqui para te ouvir e te ajudar com a Palavra. Como você está se sentindo hoje? Pode digitar livremente.</div></div>
+        <div class="chat-input-area"><input type="text" class="chat-input" id="chat-input" placeholder="Digite o que está sentindo..." onkeypress="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()">➤</button></div>
+    </div>
 
     <div class="modal-overlay" id="sos-modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeSOS()">&times;</button>
-            <h2 style="color: #e74c3c; margin-bottom: 1rem;">🚨 Guia de Socorro Imediato</h2>
-            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Se você está na iminência de ceder agora, PARE. Siga estes passos mecanicamente:</p>
-            <ul style="margin-left: 1.2rem; line-height: 2; color: var(--text-color);">
-                <li><strong>1.</strong> Levante-se imediatamente. Não fique deitado.</li>
-                <li><strong>2.</strong> Vá ao banheiro e jogue <strong>água bem gelada</strong> no rosto.</li>
-                <li><strong>3.</strong> Faça <strong>20 flexões</strong> ou agachamentos até falhar.</li>
-                <li><strong>4.</strong> Saia do quarto. Vá para a sala ou rua.</li>
-                <li><strong>5.</strong> Ligue para sua pessoa de prestação de contas. <strong>Não mande texto, LIGUE.</strong></li>
-                <li><strong>6.</strong> Ore em voz alta: "Senhor, me salva agora, eu confio no Teu sangue".</li>
+            <button class="modal-close" onclick="closeSOS()" style="color: white; background: rgba(0,0,0,0.4);">&times;</button>
+            <div style="background: linear-gradient(135deg, #ef4444, #c0392b); padding: 2rem; border-radius: 20px 20px 0 0; text-align: center; color: white; margin: -2rem; margin-bottom: 1.5rem;"><h2 style="margin-bottom: 0.5rem;">🚨 Guia de Socorro Imediato</h2><p style="opacity: 0.9; font-size: 0.9rem;">PARE. Siga estes passos mecanicamente agora:</p></div>
+            <ul style="margin-left: 1.2rem; line-height: 2.2; color: var(--text-color); padding: 0 1rem;">
+                <li><strong>1.</strong> Levante-se imediatamente do lugar.</li><li><strong>2.</strong> Vá ao banheiro e jogue <strong>água gelada</strong> no rosto.</li><li><strong>3.</strong> Faça <strong>20 flexões</strong> ou agachamentos até falhar.</li><li><strong>4.</strong> Saia do quarto. Vá para a sala ou para a rua.</li><li><strong>5.</strong> Ligue para sua pessoa de prestação de contas. <strong>LIGUE!</strong></li><li><strong>6.</strong> Ore em voz alta: "Senhor, me salva agora, eu confio no Teu sangue!"</li>
             </ul>
-            <button class="cta-btn" style="width: 100%; margin-top: 1.5rem; background-color: #e74c3c; box-shadow: none;" onclick="closeSOS()">Entendido, estou seguro agora</button>
+            <div style="padding: 1.5rem 1rem 0;"><button class="cta-btn" style="width: 100%; background-color: #2b4c7e; box-shadow: none;" onclick="closeSOS()">Entendido, estou seguro agora</button></div>
         </div>
     </div>
 
     <header>
         <div class="nav-container">
-            <div class="logo">
-                COMO VENCER OS<span> VÍCIOS</span>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌙</button>
-            </div>
+            <div class="logo">FIRME NA<span> PALAVRA</span><button class="theme-toggle" onclick="toggleTheme()" title="Alternar Tema">🌙</button></div>
             <nav>
                 <button class="nav-btn active" onclick="switchTab('inicio')">Início</button>
-                <button class="nav-btn" onclick="switchTab('testemunhos')">Testemunhos</button>
                 <button class="nav-btn" onclick="switchTab('biblia')">Bíblia</button>
-                <button class="nav-btn" onclick="switchTab('ferramentas')">Dicas</button>
-                <button class="nav-btn" onclick="switchTab('ferramentas2')">Ferramentas</button>
+                <button class="nav-btn" onclick="switchTab('batalha')">Batalha</button>
+                <button class="nav-btn" onclick="switchTab('santidade')">Santidade</button>
+                <button class="nav-btn" onclick="switchTab('testemunhos')">Testemunhos</button>
+                <button class="nav-btn" onclick="switchTab('ferramentas')">Ferramentas</button>
+                <button class="nav-btn" onclick="switchTab('socorro')">Socorro</button>
                 <button class="nav-btn" onclick="switchTab('livros')">Livros</button>
-                <button class="nav-btn btn-destaque" onclick="vencerPornografiaAbas()">Vencer a Pornografia</button>
+                <button class="nav-btn" onclick="switchTab('estudos')">Acervo Infinito</button>
             </nav>
         </div>
     </header>
 
     <main>
-        <div id="fluxo-principal">
-            <section id="inicio" class="tab-content active">
-                <div class="hero">
-                    <h1>A Liberdade Começa Aqui</h1>
-                    <p>Um espaço seguro, fundamentado na palavra de Deus, para jovens que decidiram vencer os vícios e viver uma vida de santidade real.</p>
-                    <button class="cta-btn" onclick="switchTab('ferramentas2')">Acessar Ferramentas</button>
+        <section id="inicio" class="tab-content active">
+            <div class="hero">
+                <h1>A Liberdade Começa Aqui</h1>
+                <p>Um portal completo, fundamentado na palavra de Deus, para jovens que decidiram vencer os vícios e viver uma vida de santidade real. Sem condenação, cheio de graça e estratégia.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; z-index: 1; position: relative;">
+                    <button class="cta-btn" onclick="switchTab('socorro')">Preciso de Socorro Agora</button>
+                    <button class="cta-btn" style="background-color: var(--secondary-color); box-shadow: none;" onclick="toggleChat()">Falar com Conselheiro</button>
                 </div>
-                <div class="card">
-                    <h3>O Primeiro Passo: Reconhecimento e Graça</h3>
-                    <p>Vencer um ciclo de habits nocivos exige honestidade diante de Deus. A Bíblia nos lembra em Romanos 8:1 que já não há condenação para os que estão em Cristo Jesus. O processo de libertação não é sobre carregar culpa, mas sobre caminhar em direção à luz através do arrependimento e da transformação da mente.</p>
-                </div>
-                <div class="card">
-                    <h3>Por que este site existe?</h3>
-                    <p>Nós entendemos a pressão do mundo digital moderno. O acesso ao que é prejudicial está a apenas um clique de distância. Este portal serve como um escudo e um guia prático contínuo para reconfigurar seus hábitos e fortalecer seu espírito diário.</p>
-                </div>
-            </section>
-
-            <section id="testemunhos" class="tab-content">
-                <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Testemunhos de Liderança</h2>
-                <div class="card">
-                    <h3>"A Transparência Me Libertou"</h3>
-                    <span class="author">Depoimento de Liderança Pastoral</span>
-                    <p>“Durante o início do meu ministério juvenil, lutei secretamente com imagens inadequadas na internet. O ponto de virada foi quando quebrei o orgulho e confessei a um mentor de confiança. A mentoria e a prestação de contas quebrei o ciclo secreto. O pecado cresce no escuro, mas perde a força quando trazido para a luz.”</p>
-                </div>
-                <div class="card">
-                    <h3>A Reconfiguração da Mente</h3>
-                    <span class="author">Reflexão de Conselheiro Cristão</span>
-                    <p>“Muitos jovens acham que a tentação é um sinal de que falharam. Na verdade, a batalha está em como respondemos a ela. Aprendi a direcionar minha atenção para o serviço ao próximo e a retirar do meu quarto as telas durante a noite. Blindar o ambiente é o segredo para proteger o coração.”</p>
-                </div>
-            </section>
-
-            <section id="biblia" class="tab-content">
-                <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Vencedores na Palavra</h2>
-                <div class="card">
-                    <h3>José do Egito: A Estratégia da Fuga</h3>
-                    <span class="author">Gênesis 39</span>
-                    <p>José enfrentou uma das maiores pressões de assédio e imoralidade descritas no Antigo Testamento. Quando a esposa de Potifar o encurralou, ele não tentou argumentar ou debater; ele simplesmente <strong>fugiu</strong>. A lição de José é clara: contra certas tentações visuais e físicas, a maior coragem está em retirar-se imediatamente da situação.</p>
-                </div>
-                <div class="card">
-                    <h3>Jó: O Pacto com os Olhos</h3>
-                    <span class="author">Jó 31:1</span>
-                    <p>Jó disse: <em>"Fiz aliança com os meus olhos; como, pois, os fixaria numa virgem?"</em>. Milhares de anos antes da internet, Jó já entendia que a pureza começa no controle do estímulo visual.</p>
-                </div>
-                <div class="card">
-                    <h3>O Rei Davi: A Restauração após a Queda</h3>
-                    <span class="author">Salmos 51</span>
-                    <p>Davi falhou gravemente ao olhar de onde não devia (do terraço). No entanto, o seu legado não foi a queda, mas o seu arrependimento profundo. O Salmo 51 mostra o caminho para quem precisa recomeçar: pedir um coração puro e um espírito inabalável renovado por Deus.</p>
-                </div>
-            </section>
-
-            <section id="ferramentas" class="tab-content">
-                <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Guia Prático do Dia a Dia</h2>
-                <div class="tips-grid">
-                    <div class="tip-item">
-                        <div class="tip-number">1</div>
-                        <div>
-                            <h4 style="margin-bottom: 0.4rem; color: var(--primary-color);">Regra do Quarto Sem Telas</h4>
-                            <p>Evite carregar o celular, tablet ou notebook dentro do quarto à noite. A maioria das recaídas ocorre em momentos de tédio, solidão e privacidade noturna.</p>
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <div class="tip-number">2</div>
-                        <div>
-                            <h4 style="margin-bottom: 0.4rem; color: var(--primary-color);">Parceiro de Prestação de Contas</h4>
-                            <p>Escolha um amigo maduro na fé ou líder da igreja e dê a ele a liberdade de perguntar como está a sua vida digital.</p>
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <div class="tip-number">3</div>
-                        <div>
-                            <h4 style="margin-bottom: 0.4rem; color: var(--primary-color);">Filtros de Bloqueio Ativos</h4>
-                            <p>Instale bloqueadores de conteúdo adulto em todos os seus dispositivos. Use ferramentas que permitam que outra pessoa crie a senha.</p>
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <div class="tip-number">4</div>
-                        <div>
-                            <h4 style="margin-bottom: 0.4rem; color: var(--primary-color);">A Regra dos 5 Minutos</h4>
-                            <p>Quando o gatilho mental surgir, mude de ambiente ou comece uma atividade física imediatamente. O pico da urgência química no cérebro dura poucos minutos se você quebrar o padrão.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- NOVA ABA DE FERRAMENTAS -->
-            <section id="ferramentas2" class="tab-content">
-                <h2 style="margin-bottom: 2rem; color: var(--primary-color);">Ferramentas de Combate Interativo</h2>
-                <div class="tool-container">
-                    
-                    <!-- Versículo do Dia -->
-                    <div class="tool-card">
-                        <div class="tool-icon">📖</div>
-                        <h3 style="font-size: 1.2rem;">Versículo do Dia</h3>
-                        <div class="verse-box" id="verse-box">
-                            "Clique no botão abaixo para receber uma palavra de força para hoje."
-                        </div>
-                        <button class="btn-sm btn-accent" onclick="getNewVerse()">Gerar Novo Versículo</button>
-                    </div>
-
-                    <!-- Timer de Meditação -->
-                    <div class="tool-card">
-                        <div class="tool-icon">⏱️</div>
-                        <h3 style="font-size: 1.2rem;">Timer de Meditação (5 Minutos)</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Use isso quando sentir o impulso. Apenas respire e olhe fixamente para o tempo até ele zerar.</p>
-                        <div class="timer-display" id="timer-display">05:00</div>
-                        <div>
-                            <button class="btn-sm btn-primary" id="timer-btn" onclick="startTimer()">Iniciar</button>
-                            <button class="btn-sm btn-danger" onclick="resetTimer()">Zerar</button>
-                        </div>
-                    </div>
-
-                    <!-- Diário de Conquistas -->
-                    <div class="tool-card" style="grid-column: span 2;">
-                        <div class="tool-icon">📝</div>
-                        <h3 style="font-size: 1.2rem;">Diário de Oração e Conquistas</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Registre suas vitórias, orações ou momentos difíceis. Isso fortalece sua mente e serve como um memorial de libertação (salvo no seu navegador).</p>
-                        <textarea class="diary-area" id="diary-input" placeholder="Escreva aqui o que você está sentindo, uma oração, ou uma vitória de hoje..."></textarea>
-                        <div style="display: flex; gap: 0.5rem; justify-content: center;">
-                            <button class="btn-sm btn-primary" onclick="saveDiaryEntry()">Salvar Registro</button>
-                            <button class="btn-sm btn-danger" onclick="clearDiary()">Limpar Tudo</button>
-                        </div>
-                        <div class="diary-list" id="diary-list"></div>
-                    </div>
-
-                </div>
-            </section>
-
-            <section id="livros" class="tab-content">
-                <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Biblioteca para a Liberdade</h2>
-                <div class="card" style="border-left-color: #27ae60;">
-                    <h3>"Finalmente Livres"</h3>
-                    <span class="author">Autor: Heath Lambert</span>
-                    <p>Um dos manuais cristãos mais práticos sobre o assunto. O autor aborda como a graça de Deus fornece ferramentas de poder real para destruir o vício, destacando a importância da prestação de contas, da honestidade e de estratégias de fuga baseadas inteiramente nas Escrituras.</p>
-                </div>
-                <div class="card" style="border-left-color: #27ae60;">
-                    <h3>"A Batalha de Todo Homem"</h3>
-                    <span class="author">Autores: Stephen Arterburn e Fred Stoeker</span>
-                    <p>Clássicos da literatura cristã que tratam abertamente da pureza sexual na era digital. Os livros ensinam como treinar os olhos e a mente para interceptar e desarmar os pensamentos de cobiça antes que eles se transformem em pecado e dependência habitual.</p>
-                </div>
-            </section>
-
-            <div class="load-more-container" id="container-btn-fase1">
-                <button class="load-more-btn" onclick="irParaFase2()">Carregar Mais Conteúdo Espiritual ↓</button>
             </div>
-        </div>
+            <div class="card"><h3>O Primeiro Passo: Reconhecimento e Graça</h3><p>Vencer um ciclo de hábitos nocivos exige honestidade diante de Deus. A Bíblia nos lembra em Romanos 8:1 que já não há condenação para os que estão em Cristo Jesus. O processo de libertação não é sobre carregar culpa, mas sobre caminhar em direção à luz através do arrependimento e da transformação da mente.</p></div>
+            <div class="card"><h3>Por que este site existe?</h3><p>Nós entendemos a pressão do mundo digital moderno. O acesso ao que é prejudicial está a apenas um clique de distância. Este portal serve como um escudo e um guia prático contínuo para reconfigurar seus hábitos, renovar sua mente e fortalecer seu espírito diário. Aqui você encontrará ferramentas, versículos sob medida e pessoas que venceram as mesmas lutas.</p></div>
+        </section>
 
-        <!-- FASES DINÂMICAS -->
-        <div id="fase2-extensao" style="display: none; animation: fadeInUp 0.8s ease;">
-            <hr class="phase-divider">
-            <div class="phase-title">
-                <div class="phase-icon">⚔️</div>
-                <h2 style="color: var(--primary-color);">Fase 2: Combate à Frieza</h2>
-            </div>
-            <div id="conteudo-fase2"></div>
-            <div class="load-more-container" id="container-btn-fase2">
-                <button class="load-more-btn" style="border-color: var(--accent-color); color: var(--accent-color);" onclick="irParaFase3()">Revelar Guia de Socorro Extremo ↓</button>
-            </div>
-        </div>
+        <section id="biblia" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Vencedores na Palavra: Exemplos de Queda e Graça</h2>
+            <div class="card"><h3>José do Egito: A Estratégia da Fuga</h3><span class="author">Gênesis 39</span><p>José enfrentou uma das maiores pressões de assédio e imoralidade. Quando a esposa de Potifar o encurralou, ele não tentou argumentar ou debater; ele simplesmente <strong>fugiu</strong>, deixando até a sua capa. A lição de José é clara: contra certas tentações visuais e físicas, a maior coragem está em retirar-se imediatamente da situação.</p></div>
+            <div class="card"><h3>Jó: O Pacto com os Olhos</h3><span class="author">Jó 31:1</span><p>Jó disse: <em>"Fiz aliança com os meus olhos; como, pois, os fixaria numa virgem?"</em>. Milhares de anos antes da internet, Jó já entendia que a pureza começa no controle do estímulo visual. Não se chega à queda física sem antes ter permitido o olhar.</p></div>
+            <div class="card"><h3>O Rei Davi: A Restauração após a Queda</h3><span class="author">Salmos 51</span><p>Davi falhou gravemente ao olhar de onde não devia (do terraço). No entanto, o seu legado não foi a queda, mas o seu arrependimento profundo. O Salmo 51 mostra o caminho para quem precisa recomeçar: pedir um coração puro e um espírito inabalável renovado por Deus. A queda não é o fim da sua história.</p></div>
+            <div class="card" style="border-left-color: #c0392b;"><h3>Sansão: A Força Que Ignorou a Sabedoria</h3><span class="author">Juízes 16</span><p>Sansão tinha a força física de um exército, mas era escravo dos seus próprios olhos e desejos. Ele brincou com o pecado no colo de Dalila até perder tudo. A lição: a unção de Deus não te isenta das consequências de brincar com a tentação. A verdadeira força é dominar a si mesmo.</p></div>
+            <div class="card" style="border-left-color: #27ae60;"><h3>Pedro: O Remorso e a Restauração</h3><span class="author">Lucas 22 e João 21</span><p>Pedro negou Jesus três vezes por medo e pressão. Ele chorou amargamente. Mas Jesus não o descartou; após a ressurreição, restaurou Pedro perguntando-lhe três vezes: "Você me ama?". Se você caiu e chorou, Jesus não te descartou. Ele quer te restaurar.</p></div>
+            <div class="card" style="border-left-color: #8e44ad;"><h3>O Filho Pródigo: A Misericórdia do Pai</h3><span class="author">Lucas 15</span><p>O jovem desperdiçou tudo em vícios e prazeres, achando que seria livre. Acabou num chiqueiro. Mas "caiu em si" e voltou. O Pai não o repreendeu; correu ao seu encontro com um abraço. Por pior que seja o fundo do poço, o caminho de volta para casa começa com um arrependimento sincero.</p></div>
+        </section>
 
-        <div id="fase3-extensao" style="display: none; animation: fadeInUp 0.8s ease;">
-            <hr class="phase-divider">
-            <div class="phase-title">
-                <div class="phase-icon">🛡️</div>
-                <h2 style="color: var(--accent-color);">Fase 3: Blindagem Absoluta</h2>
-            </div>
-            <div id="conteudo-fase3"></div>
-            <div class="load-more-container" id="container-btn-fase3">
-                <button class="load-more-btn" style="border-color: #8e44ad; color: #8e44ad;" onclick="irParaFase4()">Restauração de Identidade ↓</button>
-            </div>
-        </div>
+        <section id="batalha" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">⚔️ Batalha Espiritual: O Inimigo e a Armadura</h2>
+            <div class="card"><h3>Nossa Luta Não É Contra Carne e Sangue</h3><p>Efésios 6:12 nos diz que a nossa luta não é contra pessoas, mas contra principados e potestades. O vício não é apenas um mau hábito; é uma fortaleza espiritual na mente. Você não está lutando apenas contra a dopamina, está lutando contra um inimigo que quer roubar a sua identidade em Cristo.</p></div>
+            <div class="card"><h3>A Armadura de Deus em Efésios 6</h3><p>Para vencer, você precisa estar vestido diariamente:<br><strong>1. Cinto da Verdade:</strong> Pare de mentir para si mesmo. O pecado começa na mentira "só dessa vez".<br><strong>2. Couraça da Justiça:</strong> Cubra-se com o sangue de Jesus, não com a sua própria performance.<br><strong>3. Calçados do Evangelho da Paz:</strong> Caminhe com propósito, sabendo quem você é em Cristo.<br><strong>4. Escudo da Fé:</strong> Apague os dardos inflamados (pensamentos invasivos) declarando a Palavra de Deus em voz alta.<br><strong>5. Capacete da Salvação:</strong> Proteja sua mente. A batalha é vencida ou perdida nos pensamentos.<br><strong>6. Espada do Espírito:</strong> A Palavra de Deus é a única arma ofensiva. Memorize versículos.</p></div>
+            <div class="card" style="border-left-color: #e74c3c;"><h3>Como o Inimigo Ataca</h3><p>Satanás é o acusador (Ap 12:10) e o pai da mentira (Jo 8:44). Após uma queda, ele não quer que você ore; ele quer que você se esconda de Deus por vergonha. A acusação te afasta da presença de Deus, que é o único lugar onde há cura. Não se esconda.</p></div>
+        </section>
 
-        <div id="fase4-extensao" style="display: none; animation: fadeInUp 0.8s ease;">
-            <hr class="phase-divider">
-            <div class="phase-title">
-                <div class="phase-icon">🩸</div>
-                <h2 style="color: #8e44ad;">Fase 4: Cura de Raízes</h2>
-            </div>
-            <div id="conteudo-fase4"></div>
-            <div class="load-more-container" id="container-btn-fase4">
-                <button class="load-more-btn" style="border-color: #16a085; color: #16a085;" onclick="irParaFase5()">O Legado de Santidade ↓</button>
-            </div>
-        </div>
+        <section id="santidade" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">👑 Santidade no Mundo Digital</h2>
+            <div class="card"><h3>1 Tesalonicenses 4:3-5</h3><p><em>"Porque esta é a vontade de Deus, a vossa santificação; que vos abstenhais da prostituição; Que cada um de vós saiba possuir o seu vaso em santificação e honra; Não na paixão da concupiscência..."</em></p></div>
+            <div class="card"><h3>Blindando o Ambiente Físico</h3><p>Santidade não é só orar, é tomar atitudes práticas:<br>• Celular e notebook fora do quarto à noite.<br>• Instale bloqueadores de conteúdo e dê a senha para um amigo.<br>• Feche abas desnecessárias no navegador.<br>• Não fique sozinho por muito tempo quando estiver ocioso.</p></div>
+            <div class="card"><h3>Blindando a Mente (O Filtro dos Olhos)</h3><p>Jó fez um pacto com os olhos. No mundo das redes sociais, você precisa decidir o que rola o feed:<br>• Siga apenas conteúdo que edifica.<br>• Use a regra dos 3 segundos: se aparecer um gatilho, role a tela ou feche o app imediatamente.<br>• Transforme o tédio em tempo com Deus (ouça louvor, leia a Bíblia em áudio).</p></div>
+        </section>
 
-        <div id="fase5-extensao" style="display: none; animation: fadeInUp 0.8s ease;">
-            <hr class="phase-divider">
-            <div class="phase-title">
-                <div class="phase-icon">🔥</div>
-                <h2 style="color: #16a085;">Fase 5: Multiplicação</h2>
-            </div>
-            <div id="conteudo-fase5"></div>
-            <div id="acervo-infinito-dinamico"></div>
-            <div class="load-more-container" id="container-btn-infinito" style="margin-top: 3.5rem;">
-                <button class="load-more-btn" style="border-color: #c0392b; color: #c0392b; background-color: #fff5f5; width: 100%; max-width: 650px; font-size: 1.1rem; padding: 1.2rem;" onclick="carregarMaisConteudoInfinito()">
-                    🔄 Gerar Mais Estudos e Orações (Acervo Infinito) ↓
-                </button>
-            </div>
-        </div>
+        <section id="testemunhos" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Testemunhos de Vitória</h2>
+            <div class="card"><h3>"A Transparência Me Libertou"</h3><span class="author">Depoimento de Liderança Pastoral</span><p>“Durante o início do meu ministério juvenil, lutei secretamente com imagens inadequadas. O ponto de virada foi quando quebrei o orgulho e confessei a um mentor. A mentoria e a prestação de contas quebraram o ciclo secreto. O pecado cresce no escuro, mas perde a força quando trazido para a luz.”</p></div>
+            <div class="card"><h3>A Reconfiguração da Mente</h3><span class="author">Reflexão de Conselheiro Cristão</span><p>“Muitos acham que a tentação é um sinal de que falharam. Na verdade, a batalha está em como respondemos. Aprendi a direcionar minha atenção para o serviço e a retirar as telas do quarto. Blindar o ambiente é o segredo para proteger o coração.”</p></div>
+            <div class="card" style="border-left-color: #16a085;"><h3>"O Vazio Foi Preenchido"</h3><span class="author">Jovem Liberto há 1 ano</span><p>“Eu procurava na pornografia o que só Deus podia me dar: aceitação. Quando comecei a orar de verdade e usar o timer de meditação nos momentos de crise, o Espírito Santo me deu forças. Hoje o vazio foi preenchido pela presença dEle.”</p></div>
+        </section>
 
+        <section id="ferramentas" class="tab-content">
+            <h2 style="margin-bottom: 2rem; color: var(--primary-color);">Ferramentas de Combate Interativo</h2>
+            <div class="tool-container">
+                <div class="tool-card"><div class="tool-icon">📖</div><h3 style="font-size: 1.1rem; font-weight: 800;">Versículo do Dia</h3><div class="verse-box" id="verse-box">"Clique no botão abaixo para receber uma palavra de força."</div><button class="btn-sm btn-accent" onclick="getNewVerse()">Gerar Versículo</button></div>
+                <div class="tool-card"><div class="tool-icon">⏱️</div><h3 style="font-size: 1.1rem; font-weight: 800;">Timer de Meditação (5 Min)</h3><p style="font-size: 0.85rem; color: var(--text-muted);">Use quando sentir o impulso. Apenas respire.</p><div class="timer-display" id="timer-display">05:00</div><div><button class="btn-sm btn-primary" id="timer-btn" onclick="startTimer()">Iniciar</button><button class="btn-sm btn-danger" onclick="resetTimer()">Zerar</button></div></div>
+                <div class="tool-card" style="grid-column: span 2;"><div class="tool-icon">📝</div><h3 style="font-size: 1.1rem; font-weight: 800;">Diário de Oração e Conquistas</h3><textarea class="diary-area" id="diary-input" placeholder="Escreva aqui..."></textarea><div style="display: flex; gap: 0.5rem;"><button class="btn-sm btn-primary" onclick="saveDiaryEntry()">Salvar</button><button class="btn-sm btn-danger" onclick="clearDiary()">Limpar</button></div><div class="diary-list" id="diary-list"></div></div>
+            </div>
+        </section>
+
+        <section id="socorro" class="tab-content">
+            <h2 style="margin-bottom: 1rem; color: var(--primary-color);">🩺 Socorro Imediato para a Sua Dor</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Não está aguentando? Digite o que está sentindo e receba uma palavra de Deus, uma oração e um conselho prático.</p>
+            <div class="card" style="border-left-color: #e74c3c;">
+                <h3>Como você está se sentindo agora?</h3>
+                <textarea class="diary-area" id="socorro-input" placeholder="Ex: Estou me sentindo sozinho, muito tentado a ceder, com raiva, ansioso..." style="margin-bottom: 1rem;"></textarea>
+                <button class="cta-btn" style="width: 100%; font-size: 0.95rem;" onclick="gerarSocorro()">🙏 Receber Conforto da Palavra</button>
+                <div id="socorro-result" style="display:none;"></div>
+            </div>
+        </section>
+
+        <section id="livros" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">Biblioteca para a Liberdade</h2>
+            <div class="card" style="border-left-color: #27ae60;"><h3>"Finalmente Livres"</h3><span class="author">Autor: Heath Lambert</span><p>Manual cristão prático sobre como a graça de Deus destrói o vício, destacando a prestação de contas e a honestidade baseadas nas Escrituras.</p></div>
+            <div class="card" style="border-left-color: #27ae60;"><h3>"A Batalha de Todo Homem"</h3><span class="author">Autores: Stephen Arterburn e Fred Stoeker</span><p>Clássicos da literatura cristã que ensinam como treinar os olhos e a mente para interceptar e desarmar os pensamentos de cobiça.</p></div>
+            <div class="card" style="border-left-color: #27ae60;"><h3>"A Culpa é do Cérebro"</h3><span class="author">Autor: Mark Laaser</span><p>Abordagem que une neurociência e fé. Explica como a pornografia altera a química cerebral e como os caminhos neurais podem ser restaurados.</p></div>
+        </section>
+
+        <section id="estudos" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-color);">📚 O Acervo: Estudos e Orações de Guerra</h2>
+            <div id="acervo-estudos"></div>
+            <div class="load-more-container" style="margin-top: 2rem;">
+                <button class="load-more-btn" onclick="carregarMaisEstudos()">🔄 Carregar Mais Estudos e Orações ↓</button>
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">COMO VENCER OS<span> VÍCIOS</span></div>
-            <p style="color: #8fa3bf; max-width: 600px; margin: 0 auto;">Um portal desenvolvido para apoiar a juventude cristã em uma caminhada íntegra, fundamentada na Palavra de Deus.</p>
-            <div class="footer-credits">
-                <p>&copy; 2026 Todos os Direitos Reservados</p>
-                <p style="margin-top: 0.5rem;">Criado por <strong>MATEUS WATILA</strong></p>
-            </div>
+            <div class="footer-logo">FIRME NA<span> PALAVRA</span></div>
+            <p style="color: #94a3b8; max-width: 600px; margin: 0 auto;">Um portal desenvolvido para apoiar a juventude cristã em uma caminhada íntegra.</p>
+            <div class="footer-credits"><p>&copy; 2024 Todos os Direitos Reservados</p><p style="margin-top: 0.5rem;">Criado por <strong>MATEUS WATILA</strong></p></div>
         </div>
     </footer>
 
     <script>
-        // --- SISTEMA CORE ---
-        function toggleTheme() {
-            document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-            const isDark = document.body.getAttribute('data-theme') === 'dark';
-            document.querySelector('.theme-toggle').innerText = isDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-        window.onload = () => { if (localStorage.getItem('theme') === 'dark') { document.body.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').innerText = '☀️'; } loadDiary(); };
+        // --- CORE SYSTEM ---
+        function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); const isDark = document.body.getAttribute('data-theme') === 'dark'; document.querySelector('.theme-toggle').innerText = isDark ? '☀️' : '🌙'; localStorage.setItem('theme', isDark ? 'dark' : 'light'); }
+        window.onload = () => { if (localStorage.getItem('theme') === 'dark') { document.body.setAttribute('data-theme', 'dark'); document.querySelector('.theme-toggle').innerText = '☀️'; } loadDiary(); carregarMaisEstudos(); carregarMaisEstudos(); carregarMaisEstudos(); };
 
-        window.onscroll = () => {
-            const ws = document.documentElement.scrollTop;
-            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("progress-bar").style.width = (ws / h) * 100 + "%";
-            document.getElementById("back-to-top").classList.toggle("show", ws > 500);
-        };
+        window.onscroll = () => { const ws = document.documentElement.scrollTop; const h = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById("progress-bar").style.width = (ws / h) * 100 + "%"; document.getElementById("back-to-top").classList.toggle("show", ws > 500); };
         document.getElementById('back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        function switchTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(b => { if(b.getAttribute('onclick') === `switchTab('${id}')`) b.classList.add('active'); });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function vencerPornografiaAbas() {
-            switchTab('ferramentas');
-            setTimeout(() => document.getElementById('container-btn-fase1').scrollIntoView({ behavior: 'smooth' }), 200);
-        }
+        function switchTab(id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('.nav-btn').forEach(b => { if(b.getAttribute('onclick') === `switchTab('${id}')`) b.classList.add('active'); }); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
         function openSOS() { document.getElementById('sos-modal').classList.add('active'); }
         function closeSOS() { document.getElementById('sos-modal').classList.remove('active'); }
         window.addEventListener('click', (e) => { if (e.target == document.getElementById('sos-modal')) closeSOS(); });
 
-        // --- FERRAMENTAS INTERATIVAS ---
-        const versiculos = [
-            { ref: "1 Coríntios 10:13", txt: "Não veio sobre vós tentação, senão a comum ao homem; mas fiel é Deus, o qual não vos deixará tentar acima do que podeis; antes com a tentação dará também o escape, para que a possais suportar." },
-            { ref: "Filipenses 4:8", txt: "Quanto ao mais, irmãos, tudo o que é verdadeiro, tudo o que é honesto, tudo o que é justo, tudo o que é puro, tudo o que é amável, tudo o que é de boa fama, se há alguma virtude, e se há algum louvor, nisso pensai." },
-            { ref: "Salmos 119:11", txt: "Escondi a tua palavra no meu coração, para eu não pecar contra ti." },
-            { ref: "Romanos 12:21", txt: "Não sejas vencido do mal, mas vence o mal com o bem." },
-            { ref: "2 Timóteo 2:22", txt: "Foge também das paixões da mocidade, e segue a justiça, a fé, o amor e a paz com os que, de coração puro, invocam ao Senhor." },
-            { ref: "Isaías 41:10", txt: "Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo, e te sustento com a destra da minha justiça." },
-            { ref: "Mateus 5:8", txt: "Bem-aventurados os limpos de coração, porque eles verão a Deus." },
-            { ref: "1 João 1:9", txt: "Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda injustiça." }
+        // --- CHATBOT ---
+        function toggleChat() { document.getElementById('chat-box').classList.toggle('active'); }
+        const bancoRespostas = [
+            { keys: ['sozinho', 'solitário', 'solidão', 'sozinha', 'ninguém'], versiculo: "Deuteronômio 31:6", texto: "Sede fortes e corajosos... porque o SENHOR vosso Deus é quem marcha convosco; não vos deixará.", oracao: "Senhor, sinto solidão, mas declaro que Tu estás comigo. Preenche este vazio com a Tua presença. Amém.", conselho: "A solidão é um gatilho perigoso. Não fique isolado. Ligue para alguém da igreja ou vá para um ambiente público." },
+            { keys: ['tentado', 'tentação', 'vontade', 'impulso', 'cobiça', 'olhar'], versiculo: "1 Coríntios 10:13", texto: "Não veio sobre vós tentação, senão humana; mas fiel é Deus... dará também o escape.", oracao: "Pai, clamo pelo escape que prometeste! Fortalece minha carne fraca. Eu resisto ao diabo em nome de Jesus!", conselho: "Levante-se IMEDIATAMENTE. Água gelada no rosto, 20 flexões e mude de ambiente. O pico dura poucos minutos!" },
+            { keys: ['ansioso', 'ansiedade', 'medo', 'agonia', 'angústia', 'desespero'], versiculo: "Filipenses 4:6-7", texto: "Não andeis ansiosos por coisa alguma... E a paz de Deus guardará os vossos corações.", oracao: "Espírito Santo, acalma minha mente. Entrego esta ansiedade e recebo a Tua paz. Amém.", conselho: "Respire fundo. A ansiedade mente que não há saída. Use o Timer de 5 minutos aqui do site e foque em respirar." },
+            { keys: ['culpa', 'sujo', 'pecado', 'falhei', 'recaí', 'recaida', 'vergonha'], versiculo: "1 João 1:9", texto: "Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar e nos purificar.", oracao: "Senhor, eu pequei, mas não vivo na condenação. Aceito o Teu perdão e me limpo no Teu sangue. Amém.", conselho: "A culpa não vem de Deus, vem do acusador. Se você caiu, levante-se hoje! O sangue de Jesus te limpa de TODO pecado." },
+            { keys: ['raiva', 'ódio', 'irritado', 'nervoso', 'frustrado'], versiculo: "Tiago 1:19-20", texto: "Todo homem seja pronto para ouvir, tardio para falar, tardio para se irar.", oracao: "Senhor, tira esta raiva do meu peito. Transforma minha frustração em paciência. Em nome de Jesus, amém.", conselho: "Dê uma caminhada. Não tome decisões com raiva. Entregue a injustiça nas mãos de Deus." },
+            { keys: ['cansado', 'desistir', 'fraco', 'exausto', 'forças'], versiculo: "Isaías 40:31", texto: "Mas os que esperam no SENHOR renovarão as suas forças; subirão com asas como águias.", oracao: "Pai, minhas forças acabaram, mas a Tua graça me basta. Renova minha energia hoje. Amém.", conselho: "Descansar não é pecado. Durma, cuide do corpo. O mundo não cairá se você parar para descansar." }
         ];
+        const respostaPadrao = { versiculo: "Salmos 46:1", texto: "Deus é o nosso refúgio e fortaleza, socorro bem presente na tribulação.", oracao: "Senhor, Tu vês meu coração. Olha por mim. Eu confio em Ti. Amém.", conselho: "Deus está no controle. Continue orando e buscando ajuda na sua comunidade." };
+
+        function sendChat() { const input = document.getElementById('chat-input'); const text = input.value.trim(); if(!text) return; const body = document.getElementById('chat-body'); body.innerHTML += `<div class="msg user">${text}</div>`; input.value = ''; setTimeout(() => { let resposta = respostaPadrao; for(let r of bancoRespostas) { if(r.keys.some(k => text.toLowerCase().includes(k))) { resposta = r; break; } } body.innerHTML += `<div class="msg bot"><strong>📖 ${resposta.versiculo}</strong><br><br><em>"${resposta.texto}"</em><br><br><strong>🙏 Oração:</strong><br>${resposta.oracao}<br><br><strong>💡 Conselho:</strong><br>${resposta.conselho}</div>`; body.scrollTop = body.scrollHeight; }, 800); }
+
+        // --- TOOLS ---
+        const versiculos = [ { ref: "1 Coríntios 10:13", txt: "Não veio sobre vós tentação, senão a comum ao homem... mas fiel é Deus, que dará o escape." }, { ref: "Filipenses 4:8", txt: "Tudo o que é verdadeiro, tudo o que é honesto, tudo o que é justo, tudo o que é puro, nisso pensai." }, { ref: "Salmos 119:11", txt: "Escondi a tua palavra no meu coração, para eu não pecar contra ti." }, { ref: "Romanos 12:21", txt: "Não sejas vencido do mal, mas vence o mal com o bem." }, { ref: "2 Timóteo 2:22", txt: "Foge também das paixões da mocidade, e segue a justiça, a fé, o amor e a paz." }, { ref: "Isaías 41:10", txt: "Não temas, porque eu sou contigo... eu te fortaleço, e te ajudo." }, { ref: "Mateus 5:8", txt: "Bem-aventurados os limpos de coração, porque eles verão a Deus." }, { ref: "1 João 1:9", txt: "Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar." }, { ref: "Salmos 34:18", txt: "Perto está o SENHOR dos que têm o coração quebrantado." }, { ref: "Romanos 8:1", txt: "Portanto, agora nenhuma condenação há para os que estão em Cristo Jesus." }, { ref: "Gálatas 5:1", txt: "Estai, pois, firmes na liberdade com que Cristo nos libertou." }, { ref: "2 Coríntios 10:5", txt: "E levando cativo todo entendimento à obediência de Cristo." } ];
         let verseIdx = 0;
-        function getNewVerse() {
-            const v = versiculos[verseIdx % versiculos.length];
-            document.getElementById('verse-box').innerHTML = `<strong style="color:var(--accent-color); display:block; margin-bottom:5px;">${v.ref}</strong>${v.txt}`;
-            verseIdx++;
-        }
+        function getNewVerse() { const v = versiculos[verseIdx % versiculos.length]; document.getElementById('verse-box').innerHTML = `<strong style="color:var(--accent-color); display:block; margin-bottom:5px;">${v.ref}</strong>${v.txt}`; verseIdx++; }
 
         let timerInterval = null; let timerSec = 300;
-        function startTimer() {
-            if(timerInterval) return;
-            document.getElementById('timer-btn').style.display = 'none';
-            timerInterval = setInterval(() => {
-                timerSec--;
-                let m = Math.floor(timerSec / 60);
-                let s = timerSec % 60;
-                document.getElementById('timer-display').innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-                if(timerSec <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById('timer-display').innerText = "Fim!"; document.getElementById('timer-btn').style.display = 'inline-block'; }
-            }, 1000);
-        }
-        function resetTimer() {
-            clearInterval(timerInterval); timerInterval = null; timerSec = 300;
-            document.getElementById('timer-display').innerText = "05:00";
-            document.getElementById('timer-btn').style.display = 'inline-block';
-        }
+        function startTimer() { if(timerInterval) return; document.getElementById('timer-btn').style.display = 'none'; timerInterval = setInterval(() => { timerSec--; let m = Math.floor(timerSec / 60); let s = timerSec % 60; document.getElementById('timer-display').innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; if(timerSec <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById('timer-display').innerText = "Fim!"; document.getElementById('timer-btn').style.display = 'inline-block'; } }, 1000); }
+        function resetTimer() { clearInterval(timerInterval); timerInterval = null; timerSec = 300; document.getElementById('timer-display').innerText = "05:00"; document.getElementById('timer-btn').style.display = 'inline-block'; }
 
-        function saveDiaryEntry() {
-            const text = document.getElementById('diary-input').value.trim();
-            if (!text) return alert("Escreva algo antes de salvar.");
-            let d = JSON.parse(localStorage.getItem('diario') || '[]');
-            const now = new Date();
-            d.unshift({ date: `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')} - ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`, text: text });
-            if(d.length > 50) d.pop(); // Limita a 50 entradas
-            localStorage.setItem('diary', JSON.stringify(d));
-            document.getElementById('diary-input').value = '';
-            loadDiary();
-        }
-        function clearDiary() {
-            if(confirm("Tem certeza que deseja apagar TODO o seu histórico de registros?")) {
-                localStorage.removeItem('diary');
-                loadDiary();
-            }
-        }
-        function loadDiary() {
-            const d = JSON.parse(localStorage.getItem('diary') || '[]');
-            const el = document.getElementById('diary-list');
-            if(!d.length) { el.innerHTML = "<p style='color:var(--text-muted); text-align:center; padding:10px;'>Nenhum registro ainda. Comece registrando suas vitórias!</p>"; return; }
-            el.innerHTML = d.map(i => `<div class="diary-item"><div>${i.text.length > 80 ? i.text.substring(0,80)+'...' : i.text}</div><div class="diary-date">${i.date}</div></div>`).join('');
-        }
+        function saveDiaryEntry() { const text = document.getElementById('diary-input').value.trim(); if (!text) return alert("Escreva algo antes de salvar."); let d = JSON.parse(localStorage.getItem('diario') || '[]'); const now = new Date(); d.unshift({ date: `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`, text: text }); if(d.length > 50) d.pop(); localStorage.setItem('diario', JSON.stringify(d)); document.getElementById('diary-input').value = ''; loadDiary(); }
+        function clearDiary() { if(confirm("Apagar TODO o histórico?")) { localStorage.removeItem('diario'); loadDiary(); } }
+        function loadDiary() { const d = JSON.parse(localStorage.getItem('diario') || '[]'); const el = document.getElementById('diary-list'); if(!d.length) { el.innerHTML = "<p style='color:var(--text-muted); text-align:center; padding:10px;'>Nenhum registro ainda.</p>"; return; } el.innerHTML = d.map(i => `<div class="diary-item"><div>${i.text.length > 80 ? i.text.substring(0,80)+'...' : i.text}</div><div style="color:var(--text-muted); font-size:0.8rem">${i.date}</div></div>`).join(''); }
 
-        // --- FASES INFINITAS ---
+        // --- SOCORRO ---
+        function gerarSocorro() { const input = document.getElementById('socorro-input').value.toLowerCase().trim(); if(!input) return alert("Por favor, escreva como está se sentindo."); let resposta = respostaPadrao; for(let r of bancoRespostas) { if(r.keys.some(k => input.includes(k))) { resposta = r; break; } } document.getElementById('socorro-result').style.display = 'block'; document.getElementById('socorro-result').innerHTML = `<div class="comfort-result"><h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">📖 Palavra para você: ${resposta.versiculo}</h4><p style="font-style: italic; margin-bottom: 1rem;">"${resposta.texto}"</p><h4 style="color: var(--accent-color); margin-bottom: 0.5rem;">🙏 Ore assim agora:</h4><p style="font-weight: 600; margin-bottom: 1rem;">"${resposta.oracao}"</p><h4 style="color: #e74c3c; margin-bottom: 0.5rem;">💡 Conselho Prático:</h4><p style="font-weight: 600;">${resposta.conselho}</p></div>`; }
+
+        // --- ESTUDOS INFINITOS ---
         const bancoDeEstudos = [
-            { titulo: "A Renovação da Mente", conteudo: "O apóstolo Paulo nos ordenou a sermos 'transformados pela renovação da nossa mente' (Rm 12:2). O vício sexual é um padrão de pensamento arraigado. A renovação exige a substituição deliberada: em vez de abrir o navegador, abra a Bíblia.", cor: "#2b4c7e" },
-            { titulo: "O Jejum como Arma de Guerra", conteudo: "O jejum não é uma dieta religiosa; é uma declaração de guerra contra a carne. A pornografia libera dopamina; o jejum treina o seu espírito a dominar os desejos físicos.", cor: "#e67e22" },
-            { titulo: "O Preenchimento Santo", conteudo: "Se você arrancar a pornografia sem colocar nada no lugar, a recaída é matemática. Deus não te liberta para que você fique parado, mas para que você seja cheio do Espírito Santo (Ef 5:18).", cor: "#27ae60" },
-            { titulo: "Neurociência da Graça", conteudo: "A dopamina causa um pico artificial que danifica os receptores cerebrais. A graça de Deus, aliada à abstinência, permite que o cérebro se 'rebalanceie' (neuroplasticidade). A cada dia limpo, seus receptores se curam.", cor: "#8e44ad" },
-            { titulo: "A Aliança do Sangue", conteudo: "Satanás é o acusador (Ap 12:10). Após uma recaída, a condenação diz: 'Deus desistiu'. O Espírito Santo diz: 'Não há condenação para os que estão em Cristo' (Rm 8:1).", cor: "#c0392b" },
-            { titulo: "Matar a Ideia na Origem", conteudo: "O pecado começa no pensamento (Tg 1:14-15). A batalha é vencida nos primeiros 3 segundos. Não debate com o pensamento, execute a fuga imediata: 'Senhor, preciso de ti agora'.", cor: "#16a085" }
+            { titulo: "A Renovação da Mente", conteudo: "O apóstolo Paulo nos ordenou a sermos 'transformados pela renovação da nossa mente' (Rm 12:2). O vício é um padrão de pensamento arraigado. A renovação exige a substituição: em vez de abrir o navegador, abra a Bíblia.", cor: "#2b4c7e" },
+            { titulo: "O Jejum como Arma de Guerra", conteudo: "O jejum não é dieta; é declaração de guerra contra a carne. A pornografia libera dopamina; o jejum treina o espírito a dominar os desejos físicos.", cor: "#e67e22" },
+            { titulo: "O Preenchimento Santo", conteudo: "Se você arrancar o vício sem colocar nada no lugar, a recaída é matemática. Deus te liberta para que você seja cheio do Espírito Santo (Ef 5:18).", cor: "#27ae60" },
+            { titulo: "Neurociência da Graça", conteudo: "A dopamina danifica receptores cerebrais. A graça de Deus, aliada à abstinência, permite que o cérebro se 'rebalanceie'. A cada dia limpo, você se cura fisicamente.", cor: "#8e44ad" },
+            { titulo: "A Aliança do Sangue", conteudo: "Após uma recaída, a condenação diz: 'Deus desistiu'. O Espírito Santo diz: 'Não há condenação para os que estão em Cristo' (Rm 8:1). Aceite a graça.", cor: "#c0392b" },
+            { titulo: "Matar a Ideia na Origem", conteudo: "A batalha é vencida nos primeiros 3 segundos (Tg 1:14-15). Não debata com o pensamento, execute a fuga imediata.", cor: "#16a085" },
+            { titulo: "A Estratégia da Fuga de José", conteudo: "José não debateu, ele fugiu. Às vezes, para manter a pureza, você precisa deixar para trás o conforto (a capa, o celular no quarto). Fugir é sabedoria.", cor: "#2980b9" },
+            { titulo: "Identidade de Filho, Não de Escravo", conteudo: "O vício te faz sentir escravo. Mas Rm 8:15 grita: 'Não recebestes espírito de escravidão, mas de adoção de filhos'. Você não é o que você faz, é quem Deus diz que você é.", cor: "#1abc9c" },
+            { titulo: "O Perigo da Frieza Espiritual", conteudo: "A frieza começa quando as orações se tornam repetições vazias. É nesse solo frio que o vício encontra espaço. O Despertar Precoce resolve isso: levante 15 min mais cedo para orar.", cor: "#f39c12" },
+            { titulo: "De Vítima a Mentor", conteudo: "A prova final da libertação é ter coragem de compartilhar sua história para resgatar outros. 'Confessai as vossas culpas uns aos outros' (Tg 5:16).", cor: "#d35400" },
+            { titulo: "Cura das Raízes de Rejeição", conteudo: "Muitas vezes, a pornografia não é sobre sexo; é anestesia emocional para a dor de rejeição. Encontre em Deus o Pai Órfão (Sl 68:5) que nunca te deixará.", cor: "#8e44ad" },
+            { titulo: "A Lei do Semeador Digital", conteudo: "Gálatas 6:7: 'Não vos enganeis; Deus não se deixa escarnecer; pois tudo o que o homem semear, isso também ceifará'. O que você planta no seu celular hoje, você colhe na sua mente amanhã.", cor: "#2c3e50" }
         ];
         const bancoDeOraoes = [
-            "Senhor Jesus, eu reconheço que minha vontade falhou, mas confio no Teu poder. Hoje, eu tomo a Tua armadura (Ef 6) e me recuso a ser escravo deste prazer ilusório.",
-            "Pai Santo, remove de mim a vergonha que me afasta de Ti. Envia o Teu Espírito para preencher o vazio que eu tentei preencher com coisas imundas.",
-            "Espírito Santo, clama dentro de mim com gemidos inexprimíveis (Rm 8:26). Dê-me a força para fechar esta tela e buscar a Tua face agora.",
-            "Senhor, cria em mim um coração puro, e renova dentro de mim um espírito inabalável (Sl 51:10). Eu quero ser livre de verdade, por amor a Ti."
+            "Senhor Jesus, reconheço que minha vontade falhou, mas confio no Teu poder. Hoje tomo a Tua armadura e me recuso a ser escravo deste prazer ilusório.",
+            "Pai Santo, remove de mim a vergonha que me afasta de Ti. Envia o Teu Espírito para preencher o vazio.",
+            "Espírito Santo, clama dentro de mim com gemidos inexprimíveis. Dê-me a força para fechar esta tela e buscar a Tua face agora.",
+            "Senhor, cria em mim um coração puro, e renova dentro de mim um espírito inabalável (Sl 51:10). Eu quero ser livre de verdade.",
+            "Deus Todo-Poderoso, quebra as correntes da minha mente. Onde há hábito, planta liberdade. Onde há vergonha, planta a Tua justiça.",
+            "Pai de misericórdia, me ajuda a não olhar para o pecado, mas a olhar para Jesus. Eu confio que a Tua graça me basta hoje."
         ];
-        let fase2=false, fase3=false, fase4=false, fase5=false, contInf=0;
+        let contEst = 0;
 
-        function irParaFase2() { if(!fase2){ document.getElementById('container-btn-fase1').style.display='none'; document.getElementById('conteudo-fase2').innerHTML=`<div class="card"><h3>O Perigo da Frieza Espiritual</h3><p>A frieza começa quando as orações se tornam repetições vazias. É exatamente nesse solo frio que o vício encontra espaço para crescer.</p></div><div class="tip-item" style="margin-bottom:1.5rem"><div class="tip-number">5</div><div><h4 style="color:var(--primary-color)">O Despertar Precoce</h4><p>Levante-se 15 minutos mais cedo para orar antes que o mundo exija sua atenção.</p></div></div>`; fase2=true; } document.getElementById('fase2-extensao').style.display='block'; setTimeout(()=>document.getElementById('fase2-extensao').scrollIntoView({behavior:'smooth'}),100); }
-        function irParaFase3() { if(!fase3){ document.getElementById('container-btn-fase2').style.display='none'; document.getElementById('conteudo-fase3').innerHTML=`<div class="card" style="border-left-color:var(--accent-color)"><h3>Guia de Socorro Extremo</h3><p>1. Levante-se. 2. Água gelada no rosto. 3. 20 flexões. 4. Saia do quarto. 5. Ligue para seu parceiro. 6. Ore alto.</p></div><div class="card" style="border-left-color:var(--accent-color)"><h3>A Armadura de Deus</h3><p>O <strong>Cinto da Verdade</strong> é ser honesto. A <strong>Couraça</strong> é lembrar que Cristo te cobre. O <strong>Escudo</strong> é levantar a Palavra contra mentiras.</p></div>`; fase3=true; } document.getElementById('fase3-extensao').style.display='block'; setTimeout(()=>document.getElementById('fase3-extensao').scrollIntoView({behavior:'smooth'}),100); }
-        function irParaFase4() { if(!fase4){ document.getElementById('container-btn-fase3').style.display='none'; document.getElementById('conteudo-fase4').innerHTML=`<div class="card" style="border-left-color:#8e44ad"><h3>Cura das Raízes de Rejeição</h3><p>Muitas vezes, a pornografia não é sobre sexo; é anestesia emocional. Encontre em Deus o 'Pai Órfão' (Sl 68:5) que nunca te deixará.</p></div>`; fase4=true; } document.getElementById('fase4-extensao').style.display='block'; setTimeout(()=>document.getElementById('fase4-extensao').scrollIntoView({behavior:'smooth'}),100); }
-        function irParaFase5() { if(!fase5){ document.getElementById('container-btn-fase4').style.display='none'; document.getElementById('conteudo-fase5').innerHTML=`<div class="card" style="border-left-color:#16a085"><h3>De Vítima a Mentor</h3><p>A prova final da libertação é ter coragem de compartilhar sua história para resgatar outros. 'Confessai as vossas culpas uns aos outros... para que sareis' (Tg 5:16).</p></div>`; fase5=true; } document.getElementById('fase5-extensao').style.display='block'; setTimeout(()=>document.getElementById('fase5-extensao').scrollIntoView({behavior:'smooth'}),100); }
-
-        function carregarMaisConteudoInfinito() {
-            const c = document.getElementById('acervo-infinito-dinamico');
-            const e = bancoDeEstudos[contInf % bancoDeEstudos.length];
-            const o = bancoDeOraoes[(contInf + 2) % bancoDeOraoes.length];
+        function carregarMaisEstudos() {
+            const c = document.getElementById('acervo-estudos');
+            const e = bancoDeEstudos[contEst % bancoDeEstudos.length];
+            const o = bancoDeOraoes[(contEst + 2) % bancoDeOraoes.length];
             const d = document.createElement('div'); d.style.animation = 'fadeInUp 0.8s ease';
-            d.innerHTML = `<div class="card" style="border-left-color:${e.cor};margin-top:2rem;"><h3>${e.titulo}</h3><p>${e.conteudo}</p></div><div class="card" style="border-left-color:#c0392b;background-color:#fff9f9;"><h3 style="color:#c0392b;">📖 Oração de Guerra</h3><p style="font-style:italic;line-height:1.8;">"${o}"</p></div>`;
-            c.appendChild(d); contInf++;
+            d.innerHTML = `<div class="card" style="border-left-color:${e.cor};margin-top:2rem;"><h3>${e.titulo}</h3><p>${e.conteudo}</p></div><div class="card" style="border-left-color:#c0392b;"><h3 style="color:#c0392b;">📖 Oração de Guerra</h3><p style="font-style:italic;line-height:1.8;">"${o}"</p></div>`;
+            c.appendChild(d); contEst++;
             setTimeout(() => d.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
     </script>
